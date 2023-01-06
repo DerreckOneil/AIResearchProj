@@ -20,6 +20,8 @@ public class MLTest : Agent
 
     public override void OnActionReceived(ActionBuffers actions) //Need to study what can be done here...
     {
+        int moveZ = actions.DiscreteActions[0]; 
+
         float previousDistanceToTarget = distanceToTarget;
         distanceToTarget = Vector3.Distance(gameObject.transform.position, goal.transform.position);
         if(gameObject.transform.position != goal.transform.position)
@@ -52,7 +54,7 @@ public class MLTest : Agent
     }
     public override void Heuristic(in ActionBuffers actionsOut)
     {
-
+        Debug.Log("Do something here?");
     }
     // Start is called before the first frame update
     void Start()
