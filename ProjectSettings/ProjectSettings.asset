@@ -154,7 +154,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.Company.ProductName
-    Standalone: com.Unity-Technologies.UnityEnvironment
+    Standalone: com.UnityTechnologies.UnityEnvironment
   buildNumber:
     Standalone: 0
     iPhone: 0
@@ -774,7 +774,7 @@ PlayerSettings:
     Android: UNITY_POST_PROCESSING_STACK_V2
     Nintendo Switch: UNITY_POST_PROCESSING_STACK_V2
     PS4: UNITY_POST_PROCESSING_STACK_V2
-    Standalone: 
+    Standalone: ENABLE_TENSORFLOW
     WebGL: UNITY_POST_PROCESSING_STACK_V2
     Windows Store Apps: UNITY_POST_PROCESSING_STACK_V2
     XboxOne: UNITY_POST_PROCESSING_STACK_V2
