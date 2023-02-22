@@ -23,6 +23,7 @@ public class MLTest : Agent
         sensor.AddObservation(gameObject.transform.position); //Where the agent is
         sensor.AddObservation(gameObject.transform.rotation.y); //Will be the rotation in which the agent is facing.
         sensor.AddObservation(goal.transform.position); //Where the goal is
+        
     }
 
 
@@ -55,7 +56,7 @@ public class MLTest : Agent
         if(!hitGoal)
         {
             Debug.Log("Move towards the target!");
-            Vector3.MoveTowards(gameObject.transform.position, goal.transform.position, 1f); //Move towards the goal and don't stop until 1 unit before.
+           //Vector3.MoveTowards(gameObject.transform.position, goal.transform.position, 1f); //Move towards the goal and don't stop until 1 unit before.
         }
         else
         {
