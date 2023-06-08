@@ -296,14 +296,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 171780226}
-  m_LocalRotation: {x: 0.40663028, y: 0.22152442, z: -0.10231505, w: 0.88040364}
-  m_LocalPosition: {x: -2.73, y: 11.12, z: -7.12}
+  m_LocalRotation: {x: 0.429613, y: 0.08425878, z: -0.04454661, w: 0.8979692}
+  m_LocalPosition: {x: 1.1, y: 12.98, z: -9.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 49.581, y: 28.247, z: 0}
+  m_LocalEulerAnglesHint: {x: 51.175, y: 10.388, z: -0.695}
 --- !u!1 &373606440
 GameObject:
   m_ObjectHideFlags: 0
@@ -799,6 +799,7 @@ GameObject:
   - component: {fileID: 886939336}
   - component: {fileID: 886939335}
   - component: {fileID: 886939339}
+  - component: {fileID: 886939340}
   m_Layer: 0
   m_Name: BasicAI
   m_TagString: Untagged
@@ -894,12 +895,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 886939334}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d5bdad443463ec4bba09e1ed523a53c, type: 3}
+  m_Script: {fileID: 11500000, guid: b7a252a520ba1ec4ab978402b935df47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basicNav: {fileID: 886939334}
-  target: {fileID: 768185285}
-  moveSpeed: 10
+  thoughtProcess: {fileID: 11400000, guid: bd34f17adc934824999fc907cebd60dc, type: 2}
+--- !u!114 &886939340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 886939334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aee00e90112f844d93d6249bebf7ee0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 0
+  penalty: -1
+  thoughtProcess: {fileID: 11400000, guid: bd34f17adc934824999fc907cebd60dc, type: 2}
+  saveTest: {fileID: 886939339}
 --- !u!1 &1051846074
 GameObject:
   m_ObjectHideFlags: 0
@@ -1051,7 +1066,6 @@ GameObject:
   - component: {fileID: 1226901349}
   - component: {fileID: 1226901350}
   - component: {fileID: 1226901351}
-  - component: {fileID: 1226901352}
   - component: {fileID: 1226901353}
   m_Layer: 0
   m_Name: 'AI '
@@ -1059,7 +1073,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!136 &1226901345
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1132,7 +1146,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1226901344}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.73, y: 1.1, z: -4.76}
+  m_LocalPosition: {x: 0.73, y: 1.1, z: -3.99}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1188,7 +1202,7 @@ MonoBehaviour:
   MaxStep: 0
   goal: {fileID: 1593387268}
   startPos: {fileID: 1326601085}
-  rbd: {fileID: 0}
+  rbd: {fileID: 1226901353}
   manualTraining: 0
 --- !u!114 &1226901351
 MonoBehaviour:
@@ -1206,22 +1220,6 @@ MonoBehaviour:
   NumStepsToRecord: 0
   DemonstrationName: AIDemo
   DemonstrationDirectory: Demos
---- !u!114 &1226901352
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1226901344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88b6042bc9a5d4aa58d931eae49442e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agentParameters:
-    maxStep: 0
-  hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
 --- !u!54 &1226901353
 Rigidbody:
   m_ObjectHideFlags: 0
