@@ -7,7 +7,11 @@ public class CustomMLAgent : MonoBehaviour
     [SerializeField] int moveSpeed;
     [SerializeField] int penalty;
 
+    [SerializeField] private GameObject goal;
+
     private int points;
+
+    private float distance;
 
     [SerializeField] ScriptableObject thoughtProcess;
     [SerializeField] SaveTest saveTest;
@@ -20,8 +24,12 @@ public class CustomMLAgent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PointSystem();
-        ChooseADirection();
+
+        //PointSystem();
+        distance = goal.transform.position.z - transform.position.z;
+        Debug.Log("distance: " + distance);
+        ChooseADirection(transform.position, distance);
+
     }
 
     void PointSystem()
@@ -29,13 +37,21 @@ public class CustomMLAgent : MonoBehaviour
         points -= penalty;
     }
 
-    void ChooseADirection()
+    void ChooseADirection(Vector3 previousPos, float previousDist)
     {
         int randomNum = Random.Range(0, 4);
         Debug.Log("Random Num: " + randomNum);
         Debug.Log("This correlates to: " + (CardinalDirection)randomNum);
         saveTest.ThoughtProcess.Directions.Add((CardinalDirection)randomNum);
         MoveAI(randomNum);
+        float currentDist = goal.transform.position.z - transform.position.z;
+        if(currentDist > previousDist)
+        {
+            Debug.Log("I'm going the wrong way");
+            gameObject.GetComponent<Renderer>().material.color = Color.red;
+        }
+        else
+            gameObject.GetComponent<Renderer>().material.color = Color.green;
     }
 
     private void MoveAI(int randomNum)

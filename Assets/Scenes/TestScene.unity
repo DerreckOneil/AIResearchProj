@@ -913,6 +913,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 0
   penalty: -1
+  goal: {fileID: 768185285}
   thoughtProcess: {fileID: 11400000, guid: bd34f17adc934824999fc907cebd60dc, type: 2}
   saveTest: {fileID: 886939339}
 --- !u!1 &1051846074
