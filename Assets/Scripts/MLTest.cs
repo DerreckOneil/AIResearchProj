@@ -72,8 +72,8 @@ public class MLTest : Agent
         }
         else
         {
-            Debug.Log("Small penalty for doing nothing.");
-            SetReward(0.1f); //Small penalty for doing nothing. 
+            Debug.Log("Small IdlePenalty for doing nothing.");
+            SetReward(0.1f); //Small IdlePenalty for doing nothing. 
         }
         
     }

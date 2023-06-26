@@ -20,6 +20,7 @@ public class SaveTest : MonoBehaviour
     public void Save()
     {
         string text = JsonUtility.ToJson(thoughtProcess, true);
+        // keep in mind this goes here C:\Users\user\AppData\LocalLow\Unity Technologies\UnityEnvironment
         string fileName = Path.Combine(Application.persistentDataPath, "Example.json").Replace('\\', '/');
         File.WriteAllText(fileName, text);
     }
