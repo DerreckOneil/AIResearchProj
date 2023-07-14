@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.Assertions;
 public class SaveTest : MonoBehaviour
 {
     [SerializeField] private ThoughtProcess thoughtProcess;
@@ -32,5 +33,17 @@ public class SaveTest : MonoBehaviour
             return;
         string text = File.ReadAllText(fileName);
         JsonUtility.FromJsonOverwrite(text, thoughtProcess);
+    }
+
+    public void Delete()
+    {
+        string fileName = Path.Combine(Application.persistentDataPath, "Example.json").Replace('\\', '/');
+
+        if (File.Exists(fileName))
+        {
+            Debug.Log("Deleting: " + fileName);
+            File.Delete(fileName);
+            Assert.IsFalse(File.Exists(fileName));
+        }
     }
 }

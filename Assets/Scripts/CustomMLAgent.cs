@@ -23,10 +23,15 @@ public class CustomMLAgent : MonoBehaviour
 
     [SerializeField] int tokens;
 
+    [SerializeField] private bool deleteSaveFileFirst;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        if(deleteSaveFileFirst)
+        {
+            saveTest.Delete();
+        }
     }
 
     // Update is called once per frame
