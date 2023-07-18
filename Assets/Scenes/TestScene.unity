@@ -918,6 +918,7 @@ MonoBehaviour:
   thoughtProcess: {fileID: 11400000, guid: bd34f17adc934824999fc907cebd60dc, type: 2}
   saveTest: {fileID: 886939339}
   tokens: 0
+  deleteSaveFileFirst: 1
 --- !u!54 &886939341
 Rigidbody:
   m_ObjectHideFlags: 0
