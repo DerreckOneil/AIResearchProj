@@ -45,5 +45,9 @@ public class SaveTest : MonoBehaviour
             File.Delete(fileName);
             Assert.IsFalse(File.Exists(fileName));
         }
+        else
+        {
+            Debug.Log("file DNE");
+        }
     }
 }

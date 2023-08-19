@@ -802,7 +802,7 @@ GameObject:
   - component: {fileID: 886939340}
   - component: {fileID: 886939341}
   m_Layer: 0
-  m_Name: BasicAI
+  m_Name: CustomAI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -918,7 +918,7 @@ MonoBehaviour:
   thoughtProcess: {fileID: 11400000, guid: bd34f17adc934824999fc907cebd60dc, type: 2}
   saveTest: {fileID: 886939339}
   tokens: 0
-  deleteSaveFileFirst: 1
+  deleteSaveFileFirst: 0
 --- !u!54 &886939341
 Rigidbody:
   m_ObjectHideFlags: 0

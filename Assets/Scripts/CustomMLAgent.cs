@@ -25,32 +25,98 @@ public class CustomMLAgent : MonoBehaviour
 
     [SerializeField] private bool deleteSaveFileFirst;
 
+    private bool useSaveFile = false;
+    private bool started = false;
+
+    private void Awake()
+    {
+        bool hasArrived = saveTest.ThoughtProcess.HasArrived;
+        if (hasArrived && !deleteSaveFileFirst)
+        {
+            Debug.Log("go off the save file");
+            useSaveFile = true;
+        }
+
+        ///if(saveTest.ThoughtProcess)
+            //saveTest.ThoughtProcess.HasArrived = false;
+    }
     // Start is called before the first frame update
     void Start()
     {
-        if(deleteSaveFileFirst)
+        if (deleteSaveFileFirst)
         {
+            ResetThoughtProcess();
             saveTest.Delete();
         }
+
+        if (useSaveFile)
+        {
+            MoveAIUsingDirections();
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!moving)
+        if (!moving)
             IdleSystem();
 
         distance = goal.transform.position.z - transform.position.z;
 
-        Debug.Log("distance: " + distance);
+        //Debug.Log("distance: " + distance);
 
 
-        if (!arrived)
+        if (!arrived && !useSaveFile)
         {
             //ChooseADirection(transform.position, distance);
             ThinkThenMoveAI(transform.position, distance);
         }
+        else if (!arrived && useSaveFile && !started)
+        {
+            MoveAIUsingDirections();
+            started = true;
+        }
 
+
+    }
+
+    private void ResetThoughtProcess()
+    {
+        saveTest.ThoughtProcess.Directions.Clear();
+        saveTest.ThoughtProcess.HasArrived = false;
+    }
+    private void MoveAIUsingDirections()
+    {
+        List<CardinalDirection> directions = saveTest.ThoughtProcess.Directions;
+        /*
+        foreach(CardinalDirection direction in directions)
+        {
+            MoveAI((int) direction);
+        }
+        */
+
+        StartCoroutine(MoveAISmoothly(directions));
+    }
+
+    IEnumerator MoveAISmoothly(List<CardinalDirection> directions)
+    {
+        int i = 0;
+        foreach (CardinalDirection direction in directions)
+        {
+            if (!arrived)
+            {
+                MoveAI((int) direction);
+                yield return null;
+            }
+            else
+            {
+                Debug.Log("Made it at iteration: " + i);
+                break;
+            }
+            Debug.Log(i);
+            i++;
+        }
     }
 
     private void ThinkThenMoveAI(Vector3 currentPos, float dist)
@@ -60,9 +126,9 @@ public class CustomMLAgent : MonoBehaviour
         Vector3 direction = (goal.transform.position - transform.position).normalized;
         Debug.Log("I should be going in this direction: " + direction);
 
-        int directionToMove = (int)direction.z;
+        int directionToMove = (int) direction.z;
         Debug.Log("This correlates to: " + (CardinalDirection) directionToMove);
-        
+
         saveTest.ThoughtProcess.Directions.Add((CardinalDirection) directionToMove);
         previousDistance = goal.transform.position.z - transform.position.z;
         MoveAI(directionToMove);
@@ -92,8 +158,8 @@ public class CustomMLAgent : MonoBehaviour
     {
         int randomNum = Random.Range(0, 4);
         Debug.Log("Random Num: " + randomNum);
-        Debug.Log("This correlates to: " + (CardinalDirection)randomNum);
-        saveTest.ThoughtProcess.Directions.Add((CardinalDirection)randomNum);
+        Debug.Log("This correlates to: " + (CardinalDirection) randomNum);
+        saveTest.ThoughtProcess.Directions.Add((CardinalDirection) randomNum);
         MoveAI(randomNum);
         float currentDist = goal.transform.position.z - transform.position.z;
         if (currentDist > previousDist)
@@ -111,15 +177,17 @@ public class CustomMLAgent : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.name == goal.name)
+        if (other.name == goal.name)
         {
             arrived = true;
+            saveTest.ThoughtProcess.HasArrived = true;
+            Debug.Log("I've arrived!");
         }
     }
     private void MoveAI(int randomNum)
     {
         moving = true;
-        switch(randomNum)
+        switch (randomNum)
         {
             case 0:
                 transform.Translate(Vector3.forward * Time.deltaTime * moveSpeed);
