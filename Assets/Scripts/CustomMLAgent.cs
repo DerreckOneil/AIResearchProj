@@ -51,9 +51,14 @@ public class CustomMLAgent : MonoBehaviour
 
         if (useSaveFile)
         {
-            MoveAIUsingDirections();
+            MoveAIUsingSavedDirections();
         }
 
+        if (!arrived && !useSaveFile)
+        {
+            //ChooseADirection(transform.position, distance);
+            StartCoroutine(ThinkThenMoveAI(transform.position, distance));
+        }
     }
 
     // Update is called once per frame
@@ -62,19 +67,14 @@ public class CustomMLAgent : MonoBehaviour
         if (!moving)
             IdleSystem();
 
-        distance = goal.transform.position.z - transform.position.z;
+        distance = goal.transform.position.z - transform.position.z; 
 
         //Debug.Log("distance: " + distance);
 
 
-        if (!arrived && !useSaveFile)
+        if (!arrived && useSaveFile && !started)
         {
-            //ChooseADirection(transform.position, distance);
-            ThinkThenMoveAI(transform.position, distance);
-        }
-        else if (!arrived && useSaveFile && !started)
-        {
-            MoveAIUsingDirections();
+            MoveAIUsingSavedDirections();
             started = true;
         }
 
@@ -86,7 +86,7 @@ public class CustomMLAgent : MonoBehaviour
         saveTest.ThoughtProcess.Directions.Clear();
         saveTest.ThoughtProcess.HasArrived = false;
     }
-    private void MoveAIUsingDirections()
+    private void MoveAIUsingSavedDirections()
     {
         List<CardinalDirection> directions = saveTest.ThoughtProcess.Directions;
         /*
@@ -119,7 +119,7 @@ public class CustomMLAgent : MonoBehaviour
         }
     }
 
-    private void ThinkThenMoveAI(Vector3 currentPos, float dist)
+    private IEnumerator ThinkThenMoveAI(Vector3 currentPos, float dist)
     {
         //Pick a cardinal direction that would get me closer to the goal and reward me for doing so.
         float previousDistance = 0;
@@ -133,6 +133,12 @@ public class CustomMLAgent : MonoBehaviour
         previousDistance = goal.transform.position.z - transform.position.z;
         MoveAI(directionToMove);
         RewardOrPunishAI(previousDistance, goal.transform.position.z - transform.position.z);
+        yield return null;
+
+        if(!arrived)
+        {
+            StartCoroutine(ThinkThenMoveAI(transform.position, dist));
+        }
     }
 
     void IdleSystem()
